@@ -35,3 +35,12 @@ print(colors)
 colors.remove("blue") # Removes an element, raises error if not found
 print(colors)
 colors.discard("yellow") # Removes if found, no error if missing
+print(colors)
+
+# Pop an element
+colors = {"red", "blue", "green"}
+removed = colors.pop()
+print("Removed:", removed)
+print("Remaining", colors)
+
+# Clear a Set
