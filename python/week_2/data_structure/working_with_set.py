@@ -44,3 +44,43 @@ print("Removed:", removed)
 print("Remaining", colors)
 
 # Clear a Set
+colors.clear()
+print(colors)
+
+# Mathematical Set Operation
+set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+# 1. Union
+print(set1 | set2)
+print(set1.union(set2))
+
+# 2. Intersection
+print(set1 & set2)
+print(set1.intersection(set2))
+
+# 3. difference
+print(set1 - set2)   
+
+# 4. Symmetric Difference
+print(set1 ^ set2)
+print(set1.symmetric_difference(set2))
+
+# Working with Sets
+# Collecting unique visitors to an event
+visitors = set()
+
+# Adding visitors
+visitors.add("Chinedu")
+visitors.add("Aisha")
+visitors.add("Chinedu") # Duplicate, ignored automatically
+print("Visitors:", visitors)
+
+# checking if a visitor attended
+# (Dont worry if you can't figure this part out yet. We will discuss it properly later in the course.)
+
+name = "Aisha"
+if name in visitors:
+    print(f"{name} attended the event.")
+else:
+    print(f"{name} did not attend the event.")

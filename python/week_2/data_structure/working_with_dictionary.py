@@ -117,4 +117,45 @@ student = {
     "is_full_time": True
 }
 
-print(f"Name: {student['name']}")
+# print(f"Name: {student['name']}")
+print(f"Subject: {", ".join(student['subject'])}")
+
+# How to add  key-value pairs to an empty dictionary
+# Create an empty dictionary
+student = {}
+
+# Add key-value pairs to it
+student["name"] = "Goodness"
+student["Interest"] = "AI"
+student["Track"] = "AI_Dev"
+print(student)
+
+# List of dictionaries - Each student has their own dictionary
+students = [
+    {"Name": "John", "Interest": "AI", "Track": "AI_Dev"},
+    {"Name": "Mary", "Interest": "Cloud Computing", "Track": "AI_Eng"},
+    {"Name": "Paul", "Interest": "Cyber Security", "Track": "AI_Dev"}
+]
+
+print(students[0]["Name"])   
+print(students[1]["Track"])  
+
+# Dictionary of dictionaries - Each student is keyed by their ID
+students = {
+  "AI010"   :  {"Name": "John", "Interest": "AI", "Track": "AI_Dev"},
+  "AI020" :  {"Name": "Mary", "Interest": "Cloud Computing", "Track": "AI_Eng"},
+  "AI030"  :  {"Name": "Paul", "Interest": "Cyber Security", "Track": "AI_Dev"}
+}
+
+print(students["AI020"]["Name"])   
+print(students["AI030"]["Track"])
+
+# Dictionary of lists - Each subject stores a list of scores
+scores = {
+    "python": [85, 78, 92],
+    "pandas": [88, 74, 90],
+    "Scikit-learn": [80, 95, 87]
+}
+
+print(scores["python"])    
+print(scores["pandas"][1]) 
