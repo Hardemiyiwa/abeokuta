@@ -13,4 +13,4 @@ print(dishes)
 # printing each dishes in single line using \n
 print("\n".join(dishes))
 # Or
-print(f"{dishes[0]} \n{dishes[1]} \n{dishes[-1]}")
+print(f"{dishes[0]}\n{dishes[1]}\n{dishes[-1]}")

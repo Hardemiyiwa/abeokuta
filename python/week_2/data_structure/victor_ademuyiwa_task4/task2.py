@@ -11,3 +11,4 @@ shopping_list.append(third_item)
 # Displaying the shopping list
 print(shopping_list)
 print(f"Shopping list: {shopping_list[0]}, {shopping_list[1]}, {shopping_list[-1]}")
+print(f"shopping list: {", ".join(shopping_list)}")
