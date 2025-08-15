@@ -138,7 +138,7 @@ students = [
 ]
 
 print(students[0]["Name"])   
-print(students[1]["Track"])  
+print(students[1]["Track"])
 
 # Dictionary of dictionaries - Each student is keyed by their ID
 students = {
