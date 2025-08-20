@@ -6,4 +6,4 @@ print("python" in text)
 text = "Python"
 print("".join(reversed(text)))
 
-# string with extra spaces, removing the leading and the trailing space  
+# string with extra spaces, removing the leading and the trailing space

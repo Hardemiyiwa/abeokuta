@@ -11,8 +11,4 @@ for attendance in range(total_estimated_number):
     else:
         seminal_attendance.add(attendance)
 # displaying the name in alphabetical order
-print(f"{", ".join((seminal_attendance))}")
-
-# method 2:
-seminal_attendance = set()
-seminal_attendance.add( )
+print(f"{", ".join(sorted(seminal_attendance))}")
