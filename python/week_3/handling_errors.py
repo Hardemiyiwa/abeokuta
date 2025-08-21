@@ -48,5 +48,5 @@
 # print(fruits[3]) # Index out of range
 
 # f. KeyError - Accessing a dictionary with a missing key.
-data = {"name", "Ada"}
+data = {"name":   "Ada"}
 print(data["age"]) # Key not found
