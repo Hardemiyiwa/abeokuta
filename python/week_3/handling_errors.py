@@ -48,5 +48,19 @@
 # print(fruits[3]) # Index out of range
 
 # f. KeyError - Accessing a dictionary with a missing key.
-data = {"name":   "Ada"}
-print(data["age"]) # Key not found
+# data = {"name":   "Ada"}
+# print(data["age"]) # Key not found
+
+# g FileNotFoundError - File does not exist.
+f = open("missing.txt") # File not found
+
+# Handling Runtime Errors
+"""
+Python provides exception handling to prevent programs from crashing when unexpected errors occur.
+# The Keywords used are:
+a. try - block of code to test for errors
+b. except - block of code that runs if an error occurs.
+c. finally - block of code that always runs (whether error occurs or not).
+"""
+
+# The try Block
