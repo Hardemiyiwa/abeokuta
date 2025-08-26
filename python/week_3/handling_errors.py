@@ -173,3 +173,4 @@ print("Area:", area)
 marks = [70, 80, 90]
 total = marks[0] * marks[1] * marks[2]  # wrong, should be sum
 print("Total:", total)
+print()
