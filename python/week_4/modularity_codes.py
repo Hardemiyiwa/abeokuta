@@ -221,6 +221,7 @@ a. non-Keyword (tuple)
 - Think of it like packing extra clothes into a bag.
 """
 def add_numbers(*args):
+    print(args)
     total = 0
     for num in args:
         total += num
@@ -236,3 +237,217 @@ b. Keyword argument(dictionary)
 - Collects extra Keyword arguments into a dictionary
 - Think of it like a labeled container where each item has a name tag.
 """
+def student_details(**kwargs):
+    print(kwargs)
+    for key, value in kwargs.items():
+        print(key, ":", value)
+
+# function call - Take note of the output
+student_details(name = "Peter", track = "AI Engineering", interest = "Block Chain")
+
+# Define student profile function
+# Ensure to not the order of arrangement of the typess of arguments used
+# This is how to arrange it of you are using everything or some of the together
+
+def participant_profile(name, age, track="AI Development", *skills, **extra_info):
+    """
+    Generate a profile for a bootcamp participant using different types of arguments.
+    """
+    profile = f"\n--- Bootcamp Participant Profile ---\n"
+    profile += f"Nmae: {name}\n"
+    profile += f"Age: {age}\n"
+    profile += f"Track: {track}\n"
+
+    # Skills (from *args)
+    if skills:
+        profile += "Skills: " +  ", ".join(skills) + "\n"
+    else:
+        profile += "Skills: Not yet specified\n"
+
+    # Extra info (from **kwargs)
+    if extra_info:
+        profile += "Additional Info:\n"
+        for key, value in extra_info.items():
+            profile += f" - {key.capitalize()}: {value}\n"
+
+    return profile # Do you remember `return` and why it is used? We are using it so it can be reused in other places
+
+# ------------ Lets test -------------
+
+# Example 1: Using only positional arguments
+print(participant_profile("Peter", 24))
+
+# Example 2: Adding keyword/default argument
+print(participant_profile("Ridwan", 29, track="AI Engineering"))
+
+# Example 3: Adding variable-length positional arguments (*args)
+print(participant_profile("David", 27, "Data Science", "Python", "SQL", "Machine Learning"))
+
+# Example 4: Adding variable-length keyword arguments (**kwargs)
+print(participant_profile(
+    "Sophia", 30, "Cybersecurity",
+    "Networking", "Ethical Hacking", "Python",
+    interest="Blockchain", city="Shagamu", phone="08123456789"
+))
+
+# Namespaces and Scope
+"""
+Namespaces
+- A namespace is like a "container" that holds names (variables, functions, objects) and maps them to the actual data stored in memory.
+- Think of it as a dictionary where keys are names and values are objects.
+- Python uses namespaces to avoid name conflicts.
+- Lets imagine a company where different departments can have employees with the same name.
+    - In the IT department, there may be a "Chris".
+    - In the Training department, there may also be a "Chris".
+- Both exist, but they are identified by their department (namespace), so there's no confusion.
+"""
+
+# Type of Namespaces
+"""
+1. Built-in namespace - Provided by Python (e.g., len, print, list)
+2. Global namespaces - Names defined at the top level of a script or module.
+3. Local namespace - Names created inside a function.
+"""
+
+# Global Namespace
+employee = "General Employee"
+
+def IT_department():
+    # Local Namespace inside IT_department
+    employee = "Chris (IT)"
+    print("Inside IT Department:", employee)
+
+def Training_department():
+    #   Local Namespace inside Training_department
+    employee = "Chris (Training)"
+    print("Inside Training Department:", employee)
+
+print("In Global Namespace:", employee) # Refers to global variable
+
+IT_department() # Uses local varible in IT
+Training_department()   # Uses local variable in Training
+
+# Using a built-in namespace function
+print("Length of 'Python':", len("Python"))
+
+# So 'Chris' can exist in more than one namespace without conflict.
+# Please, take your time to study the output carefully.
+
+# Scope
+"""
+Scope defines where in the code a name is accessible. Python follows the LEGB Rule (order of search for a variable):
+- L -Local : Inside the current function
+- E - Enclosing : Inside any enclosing function(s)
+- G - Global : At the top level of the script/module.
+- B - Buit-in : Python's built-in functions/objects
+"""
+
+x = "global x" # Global Namespace
+
+def outer():
+    x = "enclosing x" # Enclosing Namespace
+
+    def inner():
+        x = "local x" # Local Namespace
+        print("Inside inner:", x) # Local wins
+    
+    inner()
+    print("Inside outer:", x)   # Enclosing
+
+outer()
+print("In global:", x)  # Global
+
+# Watch the output
+# Notice how python searches in the order local - Enclosing - Global - Built-in (LEGB)
+
+### Global keyword
+
+# Used when you want to modify a global variable inside a function.
+
+x = 5
+
+def change_global():
+    global x
+    x = 10 # modifies the global x
+
+change_global()
+print(x)    # Output: 10
+
+# Watch the output
+
+# nonlocal keyword
+
+# Used in nested functions when you want to modify the variable from the enclosing scope (not global).
+
+def outer():
+    x = "outer x"
+
+    def inner():
+        nonlocal x
+        x = "changed by inner"
+        print("Inside inner:", x)
+    
+    inner()
+    print("Inside outer:", x)
+
+outer()
+# Watch the output
+
+# Lamda Function
+"""
+- A lambda function is a small, anonymous function (no name) defined using the lambda Keyword.
+- It can have any number of arguments, but only one expression.
+- The result of the expression is automatically returned.
+
+# This is the syntax
+lambda arguments: expression
+
+You use lambda;
+- When you need a short, throwing function(not resueable).
+- To avoid writing full def functions for small tasks.
+- used with functions like map(), filter(), sorted(), and reduce().
+"""
+
+# Normal function
+def square(x):
+    return x ** 2
+
+# Lambda function
+square_lambda = lambda x: x**2
+
+print(square(5))
+print(square_lambda(5))
+
+# Watch the output and note the difference
+
+# This one has more than one arguments.
+
+add = lambda a, b: a + b
+print(add(3, 7))    # Output: 10
+
+# Let us lambda to apply the square function to a list
+numbers = [1, 2, 3, 4]
+squares = list(map(lambda x: x**2, numbers))
+print(squares)  # Output: [1, 4, 9, 16]
+
+# Lets use lambda to filter even numbers
+numbers = [10, 15, 20, 25, 30]
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens) # Output: [10, 20, 30]
+
+# Lets use lambda to sort the tuple within a list.
+students = [("Ayo", 20), ("Bola", 18), ("Chika", 22)]
+# Sort by age
+sorted_students = sorted(students, key=lambda student: student[1])
+print(sorted_students)  # Output: [('Bola', 18), ('Ayo', 20), ('Chika', 22)]
+
+students_sorted_descending = sorted(students, key=lambda student: student[1], reverse=True)
+print(students_sorted_descending)
+
+# Output: [('Chika', 22), ('Ayo', 20), ('Bola', 18)]
+
+students_sorted_alphabetically = sorted(students, key=lambda student: student[0])
+print(students_sorted_alphabetically)   # Output: [('Ayo', 20), ('Bola', 18), ('Chika', 22)]
+
+students_sorted_alphabetically_descending = sorted(students, key=lambda student: student[0], reverse=True)
+print(students_sorted_alphabetically_descending)
