@@ -224,3 +224,55 @@ print(adunni_account.deposit(25000))
 print(adunni_account.withdraw(10000))
 print(adunni_account.transfer(15000, "Sunday James"))
 print(adunni_account.check_balance())
+
+
+# Visual Representation
+"""
+CLASS: Danfo Bus
+├── ATTRIBUTES (What it HAS)
+│   ├── route = "Garage to Ogolonto"
+│   ├── conductor_name = "Juwon"
+│   ├── capacity = 4
+│   ├── current_passengers = 0
+│   └── fare = 200
+│
+└── METHODS (What it can DO)
+    ├── pick_passenger() → current_passengers increases
+    ├── drop_passenger() → current_passengers decreases
+    ├── collect_fare() → "Pay your ₦200!"
+    ├── announce_bus_stop() → "Next stop: Ebute!"
+    └── honk() → "Pam pam pam!"
+
+OBJECT: my_danfo
+├── Uses the attributes with specific values
+└── Can perform all the methods
+"""
+
+# Practice Exercise1
+"""Given this class, identity the attributes and methods"""
+class NaijaPhone:
+    def __init__(self, brand, model, network_provider):
+        self.brand = brand
+        self.model = model
+        self.network_provider = network_provider
+        self.airtime_balance = 0
+        self.data_balance = 0
+        self.is_on = False
+    
+    def power_on(self):
+        self.is_on = True
+        return f"{self.brand} phone is now on. Network: {self.network_provider}"
+    
+    def buy_airtime(self, amount):
+        self.airtime_balance += amount
+        return f"{amount} airtime purchased. Balance: ₦{self.airtime_balance}"
+    
+    def make_call(self, number):
+        if self.is_on and self.airtime_balance > 0:
+            self.airtime_balance -= 10
+            return f"Calling {number}... Remaining airtime: ₦{self.airtime_balance}"
+        return "Cannot make call. Check phone power and airtime balance"
+    
+    def send_sms(self, message, number):
+        if self.airtime_balance >= 4:
+            self.airtime_balance -= 4
