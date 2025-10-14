@@ -204,7 +204,7 @@ class BankAccount:
     
     def check_balance(self):
         """Check current balance"""
-        return f"{self.owner}'s {self.bank_name} acoont balance: ₦{self.balance:,}"
+        return f"{self.owner}'s {self.bank_name} account balance: ₦{self.balance:,}"
     
     def generate_account_number(self):
         """Generate a unique account number"""
