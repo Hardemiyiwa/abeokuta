@@ -1,3 +1,4 @@
 sales_data.xls
 .gitattributes
 .env
+__pycache__
