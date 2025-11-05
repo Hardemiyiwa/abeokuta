@@ -24,7 +24,7 @@ class simple(BaseModel):
     name: str = Field(..., json_schema_extra={"example":"Sam Larry"})
     email: str = Field(..., json_schema_extra={"example": "sam@gmail.com"})
     password: str = Field (..., json_schema_extra={"example": "sam123"})
-    userType: str = Field(..., json_schema_extra={"example":"STUDY"})
+    userType: str = Field(..., json_schema_extra={"example":"student"})
     gender: Gender = Field(..., json_schema_extra={"example":"male"})
 
 @app.post("/signup")
@@ -79,7 +79,8 @@ def login(input: LoginRequest):
         
         encoded_token = create_token(details ={
             "email": result.email,
-            "userType": result.userType
+            "userType": result.userType,
+            "id": result.id
         }, expiry = token_time)
         
         return{
@@ -88,6 +89,27 @@ def login(input: LoginRequest):
         }
     except Exception as e:
         raise HTTPException(status_code= 500, detail = str(e))
+    
+@app.get("/courses_list")
+def view_course(user_data= Depends(verify_token)):
+    try:
+        query = text("""
+            SELECT * FROM courses
+        """)
+
+        result = db.execute(query).fetchall()
+
+        if not result:
+            raise HTTPException(status_code=404, detail="not available")
+
+        return{
+            "Courses": [dict(row)]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail= str(e))
+        
+
+
     
 class courseRequest(BaseModel):
     title: str = Field(..., json_schema_extra={"example": "Backend Course"})
@@ -119,5 +141,44 @@ def addcourses(input: courseRequest, user_data= Depends(verify_token)):
         raise HTTPException(status_code= 500, detail= str(e))
     
 
+class Enroll(BaseModel):
+    courseId: int = Field(..., json_schema_extra={"example": 3})
+    
+@app.post("/enroll")
+def enrrollment(input: Enroll, user_data = Depends(verify_token)):
+    try:
+        if user_data["userType"] != "student":
+            raise HTTPException(status_code=401, detail="You are not authorize to enroll for course")
+        
+        query = text("""
+        SELECT * FROM courses WHERE id = :id
+        """)
+
+        result = db.execute(query, {"id": input.courseId}).fetchone()
+
+        if not result:
+            raise HTTPException(status_code=401, detail="Invalid course Id")
+        
+        
+        userId = user_data["id"]
+        print(userId)
+        
+        query = text("""
+            INSERT INTO  enrollments( userId, courseId)
+            VALUES (:userId, :courseId)
+    """)
+
+        db.execute(query, {"courseId": input.courseId, "userId": user_data["id"]})
+        db.commit()
+
+        return{
+            "message":"enrollment succefull",
+            "data": {"userId":userId, "courseId": input.courseId}
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+
 if __name__ == '__main__':
-    uvicorn.run(app, host=os.getenv("host"), port = int(os.getenv("port")))
+    uvicorn.run("users:app", host=os.getenv("host"), port = int(os.getenv("port")), reload=True)
